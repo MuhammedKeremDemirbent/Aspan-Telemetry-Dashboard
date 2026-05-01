@@ -1,0 +1,157 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Aspan{% endblock %}</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Hareketli arka plan gradyanı */
+        .bg-animated {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 40%, #0f172a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Cam (glassmorphism) kart */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Input genel stil */
+        .input-field {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #818cf8;
+            box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.2);
+            outline: none;
+        }
+
+        /* Buton genel stil */
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* Floating particles */
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+    </style>
+
+    {% block extra_head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %} min-h-screen overflow-hidden">
+
+    {% block body %}{% endblock %}
+
+    <!-- Session Alert Modal -->
+    {% include 'components/molecules/session_alert.html' %}
+
+    <!-- Session Limit Data (JS için) -->
+    <input type="hidden" id="session-limit-data" value="{{ request.session.get_expiry_age|default:360 }}">
+
+    {% if user.is_authenticated %}
+    <script>
+        (function() {
+            let sessionTimeout;
+            // Veriyi gizli inputtan alıyoruz (Syntax hatasını önlemek için)
+            const limitElement = document.getElementById('session-limit-data');
+            const sessionLimit = (limitElement ? parseInt(limitElement.value) : 360) * 1000;
+            
+            function showTimeoutModal() {
+                const modal = document.getElementById('session-timeout-modal');
+                if (modal) {
+                    modal.classList.remove('hidden');
+                    const card = modal.querySelector('.glass-card');
+                    if (card) {
+                        card.classList.add('scale-105');
+                        setTimeout(() => card.classList.remove('scale-105'), 300);
+                    }
+                }
+            }
+
+            function resetTimer() {
+                if (sessionTimeout) {
+                    clearTimeout(sessionTimeout);
+                }
+                sessionTimeout = setTimeout(showTimeoutModal, sessionLimit);
+            }
+
+            // Kullanıcı etkileşimlerini takip et
+            const events = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart'];
+            events.forEach(name => {
+                document.addEventListener(name, resetTimer, true);
+            });
+
+            // İlk başlatma
+            resetTimer();
+        })();
+    </script>
+    {% endif %}
+
+    {% block extra_scripts %}{% endblock %}
+</body>
+
+</html>

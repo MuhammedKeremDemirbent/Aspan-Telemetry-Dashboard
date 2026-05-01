@@ -1,0 +1,121 @@
+#version: '3.8'
+
+services:
+  #VERİTABANI
+  db:
+    image: postgres:15
+    container_name: aspan_db
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "5433:5432"
+    volumes:
+      #Depolama hafıza bölümü
+      - aspan_postgres_data:/var/lib/postgresql/data # Veriler silinmesin diye koruma
+    networks:
+      - aspan-net
+
+  #VERİTABANI YÖNETİM PANELİ
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: aspan_admin
+    env_file:
+      - .env
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+      - PGADMIN_LISTEN_PORT=80
+    ports:
+      - "5050:80"
+    depends_on:
+      - db
+    networks:
+      - aspan-net
+
+  #DJANGO 
+  backend:
+    build: .
+    container_name: aspan_backend
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app # Bilgisayarındaki kod değişikliğini anında içeri aktarma (Hot Reload)
+    env_file:
+      - .env # .env dosyasındaki tüm değişkenleri içeri aktar
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+    ports:
+      - "8001:8000"
+    depends_on:
+      - db # Veritabanı açılmadan backend çalışmasın
+    networks:
+      - aspan-net
+
+  #REDİS (Mesaj Aracısı ve Cache)
+  redis:
+    image: redis:7-alpine
+    container_name: aspan_redis
+    networks:
+      - aspan-net
+
+  #MAILPIT (E-posta Test Aracı)
+  mailpit:
+    image: axllent/mailpit
+    container_name: aspan_mailpit
+    ports:
+      - "8025:8025" # Web arayüzü (Mailleri buradan göreceğiz)
+      - "1025:1025" # SMTP portu
+    networks:
+      - aspan-net
+
+  #CELERY WORKER (İşleri yapan işçi)
+  celery_worker:
+    build: .
+    container_name: aspan_celery_worker
+    command: celery -A core worker --loglevel=info
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    networks:
+      - aspan-net
+
+  #CELERY BEAT (Zamanlanmış işler için)
+  celery_beat:
+    build: .
+    container_name: aspan_celery_beat
+    command: celery -A core beat --loglevel=info
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+      - redis
+    networks:
+      - aspan-net
+
+  #NGINX
+  nginx:
+    image: nginx:alpine
+    container_name: aspan_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - backend
+    networks:
+      - aspan-net
+
+volumes:
+  aspan_postgres_data:
+
+networks:
+  aspan-net:

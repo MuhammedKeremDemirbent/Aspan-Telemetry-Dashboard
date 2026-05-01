@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Kayıt Ol - Aspan{% endblock %}
+
+{% block body_class %}bg-animated{% endblock %}
+
+{% block body %}
+
+<div class="particle w-72 h-72 bg-indigo-500 absolute top-10 -left-20" style="animation-delay:0s;"></div>
+<div class="particle w-48 h-48 bg-purple-500 absolute bottom-10 -right-10" style="animation-delay:2s;"></div>
+<div class="particle w-32 h-32 bg-blue-400 absolute top-1/2 right-20" style="animation-delay:4s;"></div>
+
+<div class="flex items-center justify-center min-h-screen p-4 relative z-10">
+    <!-- Register sayfasi genisligi biraz daha buyuk -->
+    <div class="glass-card rounded-2xl p-6 w-full max-w-lg my-2">
+
+        <div class="text-center mb-4">
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-indigo-600 mb-2 shadow-lg">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                </svg>
+            </div>
+            <h1 class="text-2xl font-bold text-white tracking-tight">Yeni Hesap</h1>
+            <p class="text-slate-400 mt-1 text-sm">Aspan'a katılmak için bilgilerinizi girin</p>
+        </div>
+
+        {% if messages %}
+        <div class="mb-4 p-3 rounded-lg bg-red-500/20 border border-red-500/30 text-red-300 text-sm text-center">
+            {% for message in messages %}{{ message }}{% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="POST" action="" class="space-y-3">
+            {% csrf_token %}
+
+            <!-- Ad Soyad Yan Yana -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Ad -->
+                <div>
+                    <label class="block text-slate-300 text-sm font-medium mb-1">Ad</label>
+                    <input type="text" name="first_name" placeholder="Adınız" required
+                        class="input-field w-full px-4 py-2 rounded-xl text-white placeholder-slate-500 text-sm">
+                </div>
+                <!-- Soyad -->
+                <div>
+                    <label class="block text-slate-300 text-sm font-medium mb-1">Soyad</label>
+                    <input type="text" name="last_name" placeholder="Soyadınız" required
+                        class="input-field w-full px-4 py-2 rounded-xl text-white placeholder-slate-500 text-sm">
+                </div>
+            </div>
+
+            <!-- Kullanici Adi -->
+            <div>
+                <label class="block text-slate-300 text-sm font-medium mb-1">Kullanıcı Adı</label>
+                <input type="text" name="username" placeholder="kullanıcı_adı" required
+                    class="input-field w-full px-4 py-2.5 rounded-xl text-white placeholder-slate-500 text-sm">
+            </div>
+
+            <!-- E-posta -->
+            <div>
+                <label class="block text-slate-300 text-sm font-medium mb-1">E-posta</label>
+                <div class="relative">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
+                        </svg>
+                    </span>
+                    <input type="email" name="email" placeholder="ornek@email.com" required
+                        class="input-field w-full pl-9 pr-4 py-2 rounded-xl text-white placeholder-slate-500 text-sm">
+                </div>
+            </div>
+
+            <!-- Telefon (Istege Bagli) -->
+            <div>
+                <label class="block text-slate-300 text-sm font-medium mb-1">Telefon (İsteğe bağlı)</label>
+                <div class="relative">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                    </span>
+                    <input type="tel" name="phone" placeholder="+90 555 000 00 00"
+                        class="input-field w-full pl-9 pr-4 py-2 rounded-xl text-white placeholder-slate-500 text-sm">
+                </div>
+            </div>
+
+            <!-- Sifre ve Sifre Onayi Yan Yana -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-slate-300 text-sm font-medium mb-1">Şifre</label>
+                    <input type="password" name="password" placeholder="Şifre" required
+                        class="input-field w-full px-4 py-2 rounded-xl text-white placeholder-slate-500 text-sm">
+                </div>
+                <div>
+                    <label class="block text-slate-300 text-sm font-medium mb-1">Şifre Tekrar</label>
+                    <input type="password" name="password_confirm" placeholder="Şifre onayı" required
+                        class="input-field w-full px-4 py-2 rounded-xl text-white placeholder-slate-500 text-sm">
+                </div>
+            </div>
+
+            <div class="pt-1">
+                {% include 'components/atoms/button.html' with text="Kayıt Ol" type="submit" extra_class="py-2.5 mt-1"%}
+            </div>
+
+        </form>
+
+        <p class="text-center text-slate-400 text-sm mt-4">
+            Zaten hesabınız var mı?
+            <a href="/accounts/login/"
+                class="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors ml-1">Giriş Yap</a>
+        </p>
+
+    </div>
+</div>
+
+{% endblock %}

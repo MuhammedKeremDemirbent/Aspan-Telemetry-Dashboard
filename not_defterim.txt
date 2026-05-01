@@ -1,0 +1,52 @@
+dockerfile requirements.txt docker-compose.yaml ve env dosyalarını hazırla
+py -m django startproject core
+
+docker compose restart backend --> backend sıkıntı çıkartınca çalıştır (sorun import os kısmıymış)
+
+C:/Users/kerem/AppData/Local/Programs/Python/Python310/python.exe manage.py startapp mainpage
+
+D4 Pini (PB5): E32'nin M0 pinine bağla.
+D5 Pini (PB4): E32'nin M1 pinine bağla.
+
+
+E-32'nin TXD kablosunu al -> Nucleo kartındaki D2 pinine tak.
+E-32'nin RXD kablosunu al -> Nucleo kartındaki D8 pinine tak.
+E-32'nin VCC kablosunu -> Nucleo'daki 3V3 pinine tak.
+E-32'nin GND kablosunu -> Nucleo'daki GND pinine tak.
+E-32'nin M0 ve M1 pinlerini de -> Herhangi bir GND pinine bağla (Böylece normal veri alışveriş moduna geçer).
+
+
+
+
+YAYINA ALMA KISMI
+
+VPS -- SANALLAŞTIRILMIŞ SUNUCU 
+DOMAIN NAME -- ALAN ADI nslookup aspantech.com
+
+winget install Cloudflare.cloudflared  indir 
+cloudflared tunnel --url http://localhost:8001 --> https://shirts-mobiles-appliance-arabia.trycloudflare.com
+
+
+settings.py içine 
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8001',
+    'http://127.0.0.1:8001',
+    'https://*.trycloudflare.com', # Cloudflare tünel linkleri için
+]
+
+# Cloudflare HTTPS başlıklarını tanıması için
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+
+
+#TTN KISMI
+APİ KEY SADECE VERİ GÖNDERİRKEN İŞE YARAYACAK
+
+##VERİ ALMA TTN 
+İlk başta webhook kuracaksın içine cloudflared linkini yapıştıracaksın. Sonra  http://cloudfalrelinkiniz 
+uplink mesaj yerine /api/ttn-webhook/ yapıştır. zaten burada biter gibi
+
+
+
+end device gel eui yazana bas messaging simulate uplink payload bişey yaz gönder

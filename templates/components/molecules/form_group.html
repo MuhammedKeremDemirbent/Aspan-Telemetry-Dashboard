@@ -1,0 +1,19 @@
+{#
+Kullanım:
+{% include 'components/molecules/form_group.html' with name="email" type="email" label="E-posta"
+placeholder="ornek@email.com" icon="email" required="required" %}
+
+Bir form satırını label + input olarak gruplar.
+Tüm parametreler atoms/input.html ile aynıdır.
+#}
+<div class="space-y-0">
+    {% include 'components/atoms/input.html' with
+    name=name
+    id=id
+    type=type
+    label=label
+    placeholder=placeholder
+    icon=icon
+    required=required
+    %}
+</div>

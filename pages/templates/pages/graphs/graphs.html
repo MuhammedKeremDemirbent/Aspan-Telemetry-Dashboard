@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Analizler - Aspan{% endblock %}
+
+{% block body_class %}bg-animated text-slate-200 selection:bg-indigo-500/30{% endblock %}
+
+{% block body %}
+<!-- Arkaplan Parçacıkları -->
+<div class="particle w-96 h-96 bg-indigo-500/10 absolute -top-20 -left-20 blur-3xl opacity-50"></div>
+<div class="particle w-80 h-80 bg-purple-500/10 absolute -bottom-20 -right-20 blur-3xl opacity-50"></div>
+
+<!-- Sidebar Organism -->
+{% include 'components/organism/sidebar.html' %}
+
+<!-- Navbar Organism -->
+{% include 'components/organism/navbar.html' %}
+
+<!-- Main Content Area -->
+<main id="main-content" class="pt-24 min-h-screen px-4 lg:px-6 transition-all duration-500 lg:ml-72 relative z-10">
+    <div class="max-w-7xl mx-auto space-y-6 pb-12">
+        
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- NPK Chart -->
+            <div class="glass-card rounded-3xl p-6 border border-white/10 shadow-xl min-h-[350px]">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-bold text-white">NPK Değerleri (Azot, Fosfor, Potasyum)</h3>
+                    <i class="fas fa-seedling text-indigo-400"></i>
+                </div>
+                <div class="relative h-[250px]">
+                    <canvas id="npkChart"></canvas>
+                </div>
+            </div>
+            
+            <!-- Moisture & Temp Chart -->
+            <div class="glass-card rounded-3xl p-6 border border-white/10 shadow-xl min-h-[350px]">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-bold text-white">Toprak Nem ve Sıcaklık</h3>
+                    <i class="fas fa-thermometer-half text-orange-400"></i>
+                </div>
+                <div class="relative h-[250px]">
+                    <canvas id="moistureTempChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Datatable Section -->
+        <div class="glass-card rounded-3xl p-6 border border-white/10 shadow-xl overflow-hidden">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold text-white">Ham Sensör Verileri</h3>
+                <div class="px-3 py-1 bg-green-500/10 text-green-400 rounded-full text-xs font-semibold border border-green-500/20">
+                    Sistem Aktif (Live)
+                </div>
+            </div>
+            <div class="overflow-x-auto overflow-y-auto max-h-[calc(100vh-350px)]" style="scrollbar-width: thin; scrollbar-color: rgba(99, 102, 241, 0.5) transparent;">
+                <table class="w-full text-left border-collapse">
+                    <thead class="sticky top-0 z-10" style="background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(16px); box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+                        <tr class="border-b border-dashed border-white/10 text-slate-400 text-sm font-semibold">
+                            <th class="py-3 px-4">Tarih / Saat</th>
+                            <th class="py-3 px-4">Cihaz ID</th>
+                            <th class="py-3 px-4 w-1/2">Ham Paket (Payload)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in sensor_data %}
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                            <td class="py-3 px-4 text-sm text-slate-300">{{ data.created_at|date:"d M Y, H:i:s" }}</td>
+                            <td class="py-3 px-4">
+                                <span class="bg-indigo-500/20 text-indigo-300 px-2 py-1 rounded text-xs font-mono">{{ data.device_id }}</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <pre class="bg-black/30 p-3 rounded-lg text-xs text-green-400 font-mono overflow-x-auto max-w-full" style="max-height: 150px;">{{ data.payload }}</pre>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="py-8 text-center text-slate-400">Henüz veritabanında sensör verisi bulunmuyor. Gelen veriler burada listelenecektir.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+<!-- Chart.js and Initialization -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Prepare Data from JSON
+        const rawData = {{ chart_data_json |safe }};
+        
+        const chartLabels = rawData.map(d => d.time);
+        const nitrogenData = rawData.map(d => d.n);
+        const phosphorusData = rawData.map(d => d.p);
+        const potassiumData = rawData.map(d => d.k);
+        const moistureData = rawData.map(d => d.m);
+        const temperatureData = rawData.map(d => d.t);
+
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: { color: '#94a3b8', font: { size: 12, family: 'Inter' }, usePointStyle: true }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                    titleColor: '#fff',
+                    bodyColor: '#cbd5e1',
+                    borderColor: 'rgba(255,255,255,0.1)',
+                    borderWidth: 1,
+                    padding: 12,
+                    displayColors: true
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { color: '#64748b' },
+                    grid: { color: 'rgba(255,255,255,0.05)', drawBorder: false }
+                },
+                y: {
+                    ticks: { color: '#64748b' },
+                    grid: { color: 'rgba(255,255,255,0.05)', drawBorder: false }
+                }
+            },
+            interaction: {
+                intersect: false,
+                mode: 'index',
+            }
+        };
+
+        // NPK Chart
+        const npkCtx = document.getElementById('npkChart').getContext('2d');
+        new Chart(npkCtx, {
+            type: 'line',
+            data: {
+                labels: chartLabels,
+                datasets: [
+                    {
+                        label: 'Azot (N)',
+                        data: nitrogenData,
+                        borderColor: '#6366f1',
+                        backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        pointHoverRadius: 6
+                    },
+                    {
+                        label: 'Fosfor (P)',
+                        data: phosphorusData,
+                        borderColor: '#ec4899',
+                        backgroundColor: 'rgba(236, 72, 153, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        pointHoverRadius: 6
+                    },
+                    {
+                        label: 'Potasyum (K)',
+                        data: potassiumData,
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        pointHoverRadius: 6
+                    }
+                ]
+            },
+            options: commonOptions
+        });
+
+        // Moisture & Temp Chart
+        const mtCtx = document.getElementById('moistureTempChart').getContext('2d');
+        new Chart(mtCtx, {
+            type: 'line',
+            data: {
+                labels: chartLabels,
+                datasets: [
+                    {
+                        label: 'Nem (%)',
+                        data: moistureData,
+                        borderColor: '#0ea5e9',
+                        backgroundColor: 'rgba(14, 165, 233, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: 'Sıcaklık (°C)',
+                        data: temperatureData,
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointRadius: 0,
+                        pointHoverRadius: 6,
+                        yAxisID: 'y1'
+                    }
+                ]
+            },
+            options: {
+                ...commonOptions,
+                scales: {
+                    ...commonOptions.scales,
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        ticks: { color: '#0ea5e9' },
+                        grid: { color: 'rgba(255,255,255,0.05)' }
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        ticks: { color: '#f59e0b' },
+                        grid: { drawOnChartArea: false }
+                    }
+                }
+            }
+        });
+    });
+</script>
+{% endblock %}

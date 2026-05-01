@@ -1,0 +1,13 @@
+django
+djangorestframework
+psycopg2-binary     #Database bağlantısı için
+python-dotenv       #Güvenlik için
+django-cors-headers #Frontend ile backend arasındaki iletişim için
+djangorestframework-simplejwt #JWT Auth için
+gunicorn
+django-filter
+numpy
+pillow
+django-redis #Bellek (Cache) için
+celery       #Arka plan görevleri için
+redis        #Celery ve Cache için Python istemcisig  
