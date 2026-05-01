@@ -10,4 +10,4 @@ numpy
 pillow
 django-redis #Bellek (Cache) için
 celery       #Arka plan görevleri için
-redis        #Celery ve Cache için Python istemcisig  
+redis        #Celery ve Cache için Python istemcisi
