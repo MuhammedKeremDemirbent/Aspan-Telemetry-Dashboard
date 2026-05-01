@@ -16,7 +16,7 @@ services:
       - aspan_postgres_data:/var/lib/postgresql/data # Veriler silinmesin diye koruma
     networks:
       - aspan-net
-
+ 
   #VERİTABANI YÖNETİM PANELİ
   pgadmin:
     image: dpage/pgadmin4
