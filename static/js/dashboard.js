@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const toggleSidebar = () => {
         const isHidden = sidebar.classList.contains('-translate-x-full');
-        
+         
         if (isHidden) {
             // Aç
             sidebar.classList.remove('-translate-x-full');
