@@ -23,3 +23,7 @@ venv.bak/
 .vscode/
 *.swp
 *.swo
+
+# Kişisel notlar
+not defterim.txt
+ornek_ucus.csv
