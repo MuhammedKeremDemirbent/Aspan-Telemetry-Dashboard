@@ -88,10 +88,14 @@
 
 <!-- Chart.js and Initialization -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Django verisi: linter hatası vermemesi için JSON script bloğu kullanılıyor -->
+<script id="chart-data" type="application/json">{{ chart_data_json|safe }}</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Prepare Data from JSON
-        const rawData = {{ chart_data_json |safe }};
+        const rawData = JSON.parse(document.getElementById('chart-data').textContent);
         
         const chartLabels = rawData.map(d => d.time);
         const nitrogenData = rawData.map(d => d.n);
