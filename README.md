@@ -14,16 +14,6 @@ The backend is seamlessly integrated with The Things Network via Webhooks. Incom
 - **Microcontroller:** STM32 Nucleo Board
 - **Gateway Protocol:** LoRaWAN infrastructure routing data to TTN.
 
----
-
-## Sustainable Development Goals 🌍
-
-- **SDG 9 (Industry, Innovation and Infrastructure):** We leverage state-of-the-art IoT infrastructure and LoRaWAN technology to foster innovation in telemetry and digital data collection.
-- **SDG 11 (Sustainable Cities and Communities):** By providing a robust data transmission system, we enable smart city applications, agricultural monitoring, and remote environmental sensing.
-- **SDG 13 (Climate Action):** Continuous remote monitoring via long-range sensors helps in gathering critical environmental data to combat climate change.
-
----
-
 ## Project Overview 🚀
 
 This repository contains:
