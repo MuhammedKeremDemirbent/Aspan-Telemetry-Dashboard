@@ -6,7 +6,7 @@ A comprehensive IoT and Web integrated project designed to receive, process, and
 
 This project leverages robust IoT communication protocols to ensure real-time data transmission from remote sensors to the web dashboard.
 
-🔗 **[The Things Network (TTN) Integration]**
+🔗 **[The Things Network (TTN) Integration](https://www.thethingsnetwork.org/)**
 The backend is seamlessly integrated with The Things Network via Webhooks. Incoming uplink payloads from edge devices are securely tunneled using **Cloudflare Tunnels** directly into the Django backend, parsed, and stored in the PostgreSQL database for real-time visualization.
 
 ### Hardware Infrastructure
