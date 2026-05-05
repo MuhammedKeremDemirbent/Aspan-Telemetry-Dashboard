@@ -3,8 +3,8 @@ from api.models import SensorData
 
 # Create your views here.
 
-def sales(request):
-    return render(request, 'pages/sales/sales.html')
+def puredata(request):
+    return render(request, 'pages/puredata/puredata.html')
 
 def info(request):
     return render(request, 'pages/info/info.html')

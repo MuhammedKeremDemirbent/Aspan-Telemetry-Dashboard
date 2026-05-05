@@ -1,13 +1,13 @@
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
 {% load static %}
 
 {% block title %}3D Simülasyon - Aspan{% endblock %}
 
-{% block body_class %}bg-animated text-slate-200 selection:bg-indigo-500/30{% endblock %}
+{% block body_class %}bg-animated text-slate-200 selection:bg-zinc-500/30{% endblock %}
 
 {% block body %}
 <!-- Arkaplan Parçacıkları -->
-<div class="particle w-96 h-96 bg-indigo-500/10 absolute -top-20 -left-20 blur-3xl opacity-50"></div>
+<div class="particle w-96 h-96 bg-zinc-500/10 absolute -top-20 -left-20 blur-3xl opacity-50"></div>
 
 <!-- Sidebar ve Navbar -->
 {% include 'components/organism/sidebar.html' %}
@@ -22,7 +22,7 @@
             <div class="flex-1 glass-card rounded-3xl border border-white/10 shadow-xl overflow-hidden relative" id="simulation-container">
                 <!-- HUD (Ekranda Kayan Veriler) -->
                 <div class="absolute top-4 left-4 bg-black/60 backdrop-blur-md border border-white/10 text-white p-4 rounded-2xl z-10 font-mono text-sm shadow-xl min-w-[160px]">
-                    <div class="text-indigo-400 font-bold mb-2 pb-2 border-b border-white/10 uppercase tracking-widest text-xs">Canlı Veri</div>
+                    <div class="text-zinc-400 font-bold mb-2 pb-2 border-b border-white/10 uppercase tracking-widest text-xs">Canlı Veri</div>
                     <div class="flex justify-between mb-1"><span>Satır:</span> <span id="hud-time" class="text-slate-300">0</span></div>
                     <div class="flex justify-between mb-1"><span>Roll:</span>  <span id="hud-roll" class="text-teal-400">0.0°</span></div>
                     <div class="flex justify-between mb-1"><span>Pitch:</span> <span id="hud-pitch" class="text-rose-400">0.0°</span></div>
@@ -37,7 +37,7 @@
                 <!-- Küçük CSV Yükleyici -->
                 <div class="flex flex-col items-center justify-center gap-2 bg-white/5 p-4 rounded-2xl border border-white/10 mb-auto mt-2">
                     <input type="file" id="csvFileInput" accept=".csv" class="hidden">
-                    <label for="csvFileInput" class="cursor-pointer bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all shadow-lg flex items-center gap-2">
+                    <label for="csvFileInput" class="cursor-pointer bg-zinc-600 hover:bg-zinc-500 text-white text-xs font-bold px-4 py-2 rounded-lg transition-all shadow-lg flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
                         CSV DOSYASI SEÇ
                     </label>
@@ -51,7 +51,7 @@
 
                 <!-- Timeline Slider -->
                 <div class="mb-8">
-                    <input type="range" id="timeline" min="0" max="100" value="0" step="1" class="w-full accent-indigo-500 h-2 bg-slate-700 hover:bg-slate-600 rounded-lg appearance-none cursor-pointer">
+                    <input type="range" id="timeline" min="0" max="100" value="0" step="1" class="w-full accent-zinc-500 h-2 bg-slate-700 hover:bg-slate-600 rounded-lg appearance-none cursor-pointer">
                     <div class="flex justify-between text-xs text-slate-500 mt-2 font-mono">
                         <span>Başlangıç</span>
                         <span>Bitiş</span>
@@ -63,7 +63,7 @@
                     <button id="btn-reset" class="w-12 h-12 rounded-full bg-white/5 hover:bg-white/10 text-slate-300 flex justify-center items-center transition-colors hover:text-white" title="Başa Sar">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" /></svg>
                     </button>
-                    <button id="btn-play-pause" class="w-14 h-14 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white flex justify-center items-center shadow-lg shadow-indigo-600/30 transition-all transform hover:scale-105" title="Oynat/Durdur">
+                    <button id="btn-play-pause" class="w-14 h-14 rounded-full bg-zinc-600 hover:bg-zinc-500 text-white flex justify-center items-center shadow-lg shadow-zinc-600/30 transition-all transform hover:scale-105" title="Oynat/Durdur">
                         <!-- Play Icon -->
                         <svg id="icon-play" class="w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
                         <!-- Pause Icon -->

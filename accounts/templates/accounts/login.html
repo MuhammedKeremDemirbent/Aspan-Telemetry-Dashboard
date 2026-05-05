@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+﻿{% extends 'base.html' %}
 {% load static %}
 
 {% block title %}Giriş Yap - Aspan{% endblock %}
@@ -7,15 +7,15 @@
 
 {% block body %}
 
-<div class="particle w-72 h-72 bg-indigo-500 absolute top-10 -left-20" style="animation-delay:0s;"></div>
-<div class="particle w-48 h-48 bg-purple-500 absolute bottom-10 -right-10" style="animation-delay:2s;"></div>
+<div class="particle w-72 h-72 bg-zinc-500 absolute top-10 -left-20" style="animation-delay:0s;"></div>
+<div class="particle w-48 h-48 bg-zinc-500 absolute bottom-10 -right-10" style="animation-delay:2s;"></div>
 <div class="particle w-32 h-32 bg-blue-400 absolute top-1/2 right-20" style="animation-delay:4s;"></div>
 
 <div class="flex items-center justify-center min-h-screen p-4 relative z-10">
     <div class="glass-card rounded-2xl p-8 w-full max-w-md">
 
         <div class="text-center mb-8">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-indigo-600 mb-4 shadow-lg">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-xl bg-zinc-600 mb-4 shadow-lg">
                 <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
@@ -40,7 +40,7 @@
             {% include 'components/atoms/input.html' with name="password" type="password" label="Şifre" placeholder="Şifrenizi girin" icon="password" required="required" %}
 
             <div class="flex items-center justify-end text-sm">
-                <a href="/accounts/resetpassword/" class="text-indigo-400 hover:text-indigo-300 transition-colors font-medium">Şifremi
+                <a href="/accounts/resetpassword/" class="text-zinc-400 hover:text-zinc-300 transition-colors font-medium">Şifremi
                     unuttum</a>
             </div>
 
@@ -51,7 +51,7 @@
         <p class="text-center text-slate-400 text-sm mt-6">
             Hesabınız yok mu?
             <a href="/accounts/register/"
-                class="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors ml-1">Kayıt Ol</a>
+                class="text-zinc-400 hover:text-zinc-300 font-semibold transition-colors ml-1">Kayıt Ol</a>
         </p>
 
     </div>

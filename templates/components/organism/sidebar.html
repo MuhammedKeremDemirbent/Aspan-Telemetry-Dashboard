@@ -1,11 +1,11 @@
-<!-- Sidebar Sidebar -->
+﻿<!-- Sidebar Sidebar -->
 <aside id="sidebar" class="fixed left-0 top-0 h-full w-72 z-50 transition-all duration-500 ease-in-out transform -translate-x-full lg:translate-x-0">
     <div class="h-full glass-card border-r border-white/10 flex flex-col shadow-2xl">
         
         <!-- Sidebar Header (Hamburger & Logo) -->
         <div class="p-6 flex items-center justify-between border-b border-white/5">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-zinc-600 to-zinc-600 flex items-center justify-center shadow-lg shadow-zinc-500/20">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
@@ -24,7 +24,7 @@
         <!-- Navigation Links -->
         <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-2 custom-scrollbar">
             <!-- Home -->
-            <a href="{% url 'home' %}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {% if url_name == 'home' %}bg-indigo-600 text-white shadow-lg shadow-indigo-600/20{% else %}text-slate-400 hover:bg-white/5 hover:text-white group{% endif %}">
+            <a href="{% url 'home' %}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {% if url_name == 'home' %}bg-zinc-600 text-white shadow-lg shadow-zinc-600/20{% else %}text-slate-400 hover:bg-white/5 hover:text-white group{% endif %}">
                 <svg class="w-5 h-5 {% if url_name != 'home' %}transition-transform group-hover:scale-110{% endif %}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
@@ -32,23 +32,23 @@
             </a>
 
             <!-- 3D Simülasyon -->
-            <a href="{% url 'simulation' %}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {% if url_name == 'simulation' %}bg-indigo-600 text-white shadow-lg shadow-indigo-600/20{% else %}text-slate-400 hover:bg-white/5 hover:text-white group{% endif %}">
+            <a href="{% url 'simulation' %}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {% if url_name == 'simulation' %}bg-zinc-600 text-white shadow-lg shadow-zinc-600/20{% else %}text-slate-400 hover:bg-white/5 hover:text-white group{% endif %}">
                 <svg class="w-5 h-5 {% if url_name != 'simulation' %}transition-transform group-hover:scale-110{% endif %}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
                 <span class="font-medium text-sm">3D Simülasyon</span>
             </a>
 
-            <!-- Sales -->
-            <a href="{% url 'sales' %}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {% if url_name == 'sales' %}bg-indigo-600 text-white shadow-lg shadow-indigo-600/20{% else %}text-slate-400 hover:bg-white/5 hover:text-white group{% endif %}">
-                <svg class="w-5 h-5 {% if url_name != 'sales' %}transition-transform group-hover:scale-110{% endif %}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Data -->
+            <a href="{% url 'puredata' %}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {% if url_name == 'puredata' %}bg-zinc-600 text-white shadow-lg shadow-zinc-600/20{% else %}text-slate-400 hover:bg-white/5 hover:text-white group{% endif %}">
+                <svg class="w-5 h-5 {% if url_name != 'puredata' %}transition-transform group-hover:scale-110{% endif %}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                 </svg>
-                <span class="font-medium text-sm">Sales</span>
+                <span class="font-medium text-sm">Data</span>
             </a>
 
             <!-- Graphs -->
-            <a href="{% url 'graphs' %}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {% if url_name == 'graphs' %}bg-indigo-600 text-white shadow-lg shadow-indigo-600/20{% else %}text-slate-400 hover:bg-white/5 hover:text-white group{% endif %}">
+            <a href="{% url 'graphs' %}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {% if url_name == 'graphs' %}bg-zinc-600 text-white shadow-lg shadow-zinc-600/20{% else %}text-slate-400 hover:bg-white/5 hover:text-white group{% endif %}">
                 <svg class="w-5 h-5 {% if url_name != 'graphs' %}transition-transform group-hover:scale-110{% endif %}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
@@ -56,7 +56,7 @@
             </a>
 
             <!-- Settings -->
-            <a href="{% url 'settings' %}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {% if url_name == 'settings' %}bg-indigo-600 text-white shadow-lg shadow-indigo-600/20{% else %}text-slate-400 hover:bg-white/5 hover:text-white group{% endif %}">
+            <a href="{% url 'settings' %}" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all {% if url_name == 'settings' %}bg-zinc-600 text-white shadow-lg shadow-zinc-600/20{% else %}text-slate-400 hover:bg-white/5 hover:text-white group{% endif %}">
                 <svg class="w-5 h-5 {% if url_name != 'settings' %}transition-transform group-hover:scale-110{% endif %}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />

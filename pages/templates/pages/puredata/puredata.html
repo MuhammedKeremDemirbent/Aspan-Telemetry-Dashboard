@@ -1,0 +1,64 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Sales - Aspan{% endblock %}
+
+{% block body_class %}bg-animated text-slate-200 selection:bg-zinc-500/30{% endblock %}
+
+{% block body %}
+<!-- Arkaplan Parçacıkları -->
+<div class="particle w-96 h-96 bg-zinc-500/10 absolute -top-20 -left-20 blur-3xl opacity-50" style="animation-delay: 0s;"></div>
+<div class="particle w-80 h-80 bg-zinc-500/10 absolute -bottom-20 -right-20 blur-3xl opacity-50" style="animation-delay: 2s;"></div>
+
+<!-- Sidebar Organism -->
+{% include 'components/organism/sidebar.html' %}
+
+<!-- Navbar Organism -->
+{% include 'components/organism/navbar.html' %}
+
+<!-- Main Content Area -->
+<main id="main-content" class="pt-24 min-h-screen px-4 lg:px-6 transition-all duration-500 lg:ml-72 relative z-10">
+    <!-- Datatable Section -->
+        <div class="glass-card rounded-3xl p-6 border border-white/10 shadow-xl overflow-hidden">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-xl font-bold text-white">Ham Sensör Verileri</h3>
+                <div class="px-3 py-1 bg-green-500/10 text-green-400 rounded-full text-xs font-semibold border border-green-500/20">
+                    Sistem Aktif (Live)
+                </div>
+            </div>
+            <div class="overflow-x-auto overflow-y-auto max-h-[calc(100vh-350px)]" style="scrollbar-width: thin; scrollbar-color: rgba(99, 102, 241, 0.5) transparent;">
+                <table class="w-full text-left border-collapse">
+                    <thead class="sticky top-0 z-10" style="background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(16px); box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+                        <tr class="border-b border-dashed border-white/10 text-slate-400 text-sm font-semibold">
+                            <th class="py-3 px-4">Tarih / Saat</th>
+                            <th class="py-3 px-4">Cihaz ID</th>
+                            <th class="py-3 px-4 w-1/2">Ham Paket (Payload)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in sensor_data %}
+                        <tr class="border-b border-white/5 hover:bg-white/5 transition-colors">
+                            <td class="py-3 px-4 text-sm text-slate-300">{{ data.created_at|date:"d M Y, H:i:s" }}</td>
+                            <td class="py-3 px-4">
+                                <span class="bg-zinc-500/20 text-zinc-300 px-2 py-1 rounded text-xs font-mono">{{ data.device_id }}</span>
+                            </td>
+                            <td class="py-3 px-4">
+                                <pre class="bg-black/30 p-3 rounded-lg text-xs text-green-400 font-mono overflow-x-auto max-w-full" style="max-height: 150px;">{{ data.payload }}</pre>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="py-8 text-center text-slate-400">Henüz veritabanında sensör verisi bulunmuyor. Gelen veriler burada listelenecektir.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</main>
+{% endblock %}
+
+
+{% block extra_scripts %}
+<script src="{% static 'js/dashboard.js' %}"></script>
+{% endblock %}
